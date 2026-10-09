@@ -1,0 +1,124 @@
+from pptx import Presentation
+from pptx.util import Inches, Pt
+
+def create_presentation():
+    # Tạo đối tượng Presentation
+    prs = Presentation()
+
+    # --- Slide 1: Trang bìa ---
+    slide_1 = prs.slides.add_slide(prs.slide_layouts[0])
+    title_1 = slide_1.shapes.title
+    subtitle_1 = slide_1.placeholders[1]
+    title_1.text = "ỨNG DỤNG TRÍ TUỆ NHÂN TẠO"
+    subtitle_1.text = "CÔNG NGHỆ KỸ THUẬT Ô TÔ\nNhóm thực hiện: Nhóm công nghệ kỹ thuật oto"
+
+    # --- Slide 2: Giới thiệu thành viên & Nhiệm vụ ---
+    slide_2 = prs.slides.add_slide(prs.slide_layouts[1])
+    title_2 = slide_2.shapes.title
+    title_2.text = "GIỚI THIỆU THÀNH VIÊN & NHIỆM VỤ"
+    content_2 = slide_2.shapes.placeholders[1].text_frame
+    content_2.text = "Thành viên nhóm:"
+    members = ["Nguyễn Hoàng Hi", "Bùi Minh Triết", "Huỳnh Thiên Phú", "Nguyễn Chí Phong", "Lê Gia Bảo (Nhóm trưởng/Thuyết trình)"]
+    for member in members:
+        p = content_2.add_paragraph()
+        p.text = f"- {member}"
+        p.level = 1
+    
+    p = content_2.add_paragraph()
+    p.text = "\nNhiệm vụ và mục tiêu:"
+    tasks = ["TH1 – Tư vấn dịch vụ", "TH2 – Ảnh & video", "TH3 – Tài liệu & dữ liệu", "TH4 – Trình bày", "TH5 – Tổng hợp"]
+    for task in tasks:
+        p = content_2.add_paragraph()
+        p.text = f"- {task}"
+        p.level = 1
+
+    # --- Slide 3 đến 7: Slide từng thành viên ---
+    member_slides = [
+        ("Huỳnh Thiên Phú", "ƯỚC MƠ CỦA BẠN CHÚNG TA CÙNG NHAU THỰC HIỆN NHÉ\n(Chèn ảnh của bạn Phú vào đây)"),
+        ("Nguyễn Hoàng Hi", "(Chèn ảnh của bạn Hi vào đây)"),
+        ("Nguyễn Chí Phong", "(Chèn ảnh của bạn Phong vào đây)"),
+        ("Bùi Minh Triết", "ĐẶC QUYỀN LÀM PRP -> ẢNH MẠNG =))\n(Chèn ảnh mạng của bạn Triết vào đây)"),
+        ("Lê Gia Bảo", "Thành viên bí ẩn - Người đứng sau giật dây AI\n(Chèn ảnh image.png - Bóng đen ẩn danh vào đây)")
+    ]
+
+    for name, desc in member_slides:
+        slide = prs.slides.add_slide(prs.slide_layouts[1])
+        slide.shapes.title.text = name
+        slide.shapes.placeholders[1].text = desc
+
+    # --- Slide 8: Tổng quan 5 Tình huống ---
+    slide_8 = prs.slides.add_slide(prs.slide_layouts[1])
+    slide_8.shapes.title.text = "THÀNH QUẢ KẾT QUẢ"
+    content_8 = slide_8.shapes.placeholders[1].text_frame
+    results = [
+        "TH1: HOÀN THÀNH PHIẾU TƯ VẤN + EMAIL KHÁCH HÀNG",
+        "TH2: ẢNH VÀ VIDEO",
+        "TH3: TÓM TẮT TÀI LIỆU + PHÂN TÍCH LỊCH SỬ BẢO TRÌ",
+        "TH4: NỘI DUNG BÁO CÁO KỸ THUẬT 7 SLIDE",
+        "TH5: QUY TRÌNH CHUẨN ĐOÁN + CHECKLIST PROMPT"
+    ]
+    for res in results:
+        p = content_8.add_paragraph()
+        p.text = res
+
+    # --- Slide 9: TH1 ---
+    slide_9 = prs.slides.add_slide(prs.slide_layouts[1])
+    slide_9.shapes.title.text = "TH1: PHIẾU TƯ VẤN VÀ EMAIL"
+    slide_9.shapes.placeholders[1].text = "- Mẫu phiếu tư vấn bảo dưỡng xe hơi chi tiết.\n- Email thông báo lịch bảo dưỡng định kỳ chuyên nghiệp.\n(Chèn 3 ảnh chụp màn hình TH1 vào đây)"
+
+    # --- Slide 10: TH2 ---
+    slide_10 = prs.slides.add_slide(prs.slide_layouts[1])
+    slide_10.shapes.title.text = "TH2: ẢNH VÀ VIDEO QUY TRÌNH"
+    slide_10.shapes.placeholders[1].text = "- Sơ đồ 12 bước quy trình bảo dưỡng.\n- Video thực tế kỹ thuật viên đưa xe lên cầu nâng.\n(Chèn ảnh và link video TH2 vào đây)"
+
+    # --- Slide 11: TH3 ---
+    slide_11 = prs.slides.add_slide(prs.slide_layouts[1])
+    slide_11.shapes.title.text = "TH3: PHÂN TÍCH LỊCH SỬ BẢO TRÌ"
+    slide_11.shapes.placeholders[1].text = "- Dầu động cơ: Xuất hiện thường xuyên nhất (35.7%).\n- Đèn Check Engine: Cần ưu tiên chẩn đoán khi phát sinh (Mức ưu tiên Cao).\n(Chèn ảnh bảng phân tích dữ liệu TH3 vào đây)"
+
+    # --- Slide 12: TH4 ---
+    slide_12 = prs.slides.add_slide(prs.slide_layouts[1])
+    slide_12.shapes.title.text = "TH4: BÁO CÁO KỸ THUẬT / ĐỀ XUẤT SỬA CHỮA"
+    slide_12.shapes.placeholders[1].text = "- Ứng dụng Gamma AI tạo 7 slide báo cáo kỹ thuật.\n- Phong cách hiện đại, ít chữ, có sơ đồ quy trình.\n(Chèn ảnh bảng dàn ý TH4 vào đây)"
+
+    # --- Slide 13: TH5 ---
+    slide_13 = prs.slides.add_slide(prs.slide_layouts[1])
+    slide_13.shapes.title.text = "TH5: QUY TRÌNH CHẨN ĐOÁN & CHECKLIST AI"
+    slide_13.shapes.placeholders[1].text = "- Quy trình chẩn đoán 7 bước có sự hỗ trợ của AI.\n- AI hỗ trợ: Đặt câu hỏi, lập checklist, giải thích mã lỗi, tóm tắt tài liệu.\n- CHECKLIST QUAN TRỌNG: AI chỉ đưa ra giả thuyết, kỹ thuật viên phải đối chiếu và đo kiểm thực tế.\n(Chèn ảnh bảng TH5 vào đây)"
+
+    # --- Slide 14: Q&A ---
+    slide_14 = prs.slides.add_slide(prs.slide_layouts[1])
+    slide_14.shapes.title.text = "Q&A - HỎI ĐÁP"
+    slide_14.shapes.placeholders[1].text = "Cảm ơn thầy/cô và các bạn đã lắng nghe!\n\nMời mọi người đặt câu hỏi phản biện."
+
+    # Lưu file
+    file_name = "Ung_Dung_Tri_Tue_Nhan_Tao_Nhom_Oto.pptx"
+    prs.save(file_name)
+    print(f"Đã tạo thành công file: {file_name}")
+
+if __name__ == '__main__':
+    create_presentation()
+```eof
+
+```text:requirements.txt
+python-pptx==0.6.23
+```eof
+
+```markdown:README.md
+# Dự án: Ứng Dụng AI trong Công Nghệ Kỹ Thuật Ô Tô
+
+Dự án này sử dụng Python để tự động tạo một bài thuyết trình PowerPoint (.pptx) trình bày về việc ứng dụng Trí tuệ Nhân tạo trong quy trình xưởng dịch vụ ô tô.
+
+## Hướng dẫn sử dụng
+
+Dự án này yêu cầu thư viện `python-pptx`.
+
+### Cách 1: Chạy trên Google Colab (Không cần cài đặt)
+
+Đây là cách nhanh nhất để chạy code và tải file PowerPoint về.
+
+1.  Tạo một sổ tay (Notebook) mới trên [Google Colab](https://colab.research.google.com/).
+2.  Tạo một cell code mới và cài đặt thư viện bằng lệnh:
+    
+```bash
+    !pip install python-pptx
